@@ -9,7 +9,7 @@ class Player():
         self.__hand += [Cards.getCards()[random.randint(1, 5)] for _ in range(2)]
         self.__graveyard = []
         self.__name = name
-        self.__isBot = isBotd
+        self.__isBot = isBot
     
     def getHand(self) -> list:
         return self.__hand
