@@ -13,6 +13,9 @@ class Player():
     
     def getHand(self) -> list:
         return self.__hand
+    
+    def isLost(self) -> bool:
+        return len(self.__hand) == 0
 
     def printHand(self) -> None:
         table = Table("Name", "HP", "Damage", "Cost", title=f"{self.__name}'s Hand")
@@ -27,7 +30,7 @@ class Player():
     
     def getCard(self, card_name: str = ""):
         for i in self.__hand:
-            if i["NAME"] == card_name.casefold():
+            if i["NAME"].casefold() == card_name.casefold():
                 return i
         
         return False

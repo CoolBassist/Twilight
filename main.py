@@ -7,5 +7,6 @@ players_hand = []
 player = Player("Joe")
 bot = Player("Bot")
 
-
 player.printHand()
+
+print(player.getCard("Dragon"))
