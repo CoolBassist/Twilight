@@ -11,7 +11,8 @@ class Cards():
             6: {"NAME": "Dragon",   "DMG": 6,   "HP": 15,   "COST": 5},
             7: {"NAME": "Mage",     "DMG": 4,   "HP": 15,   "COST": 3},
             8: {"NAME": "Peasant",  "DMG": 2,   "HP": 4,    "COST": 2},
-            9: {"NAME": "Paladin",  "DMG": 5,   "HP": 15,   "COST": 5}
+            9: {"NAME": "Paladin",  "DMG": 5,   "HP": 15,   "COST": 5},
+            10:{"NAME": "Archer",   "DMG": 5,   "HP": 4,    "COST": 2}
         }
 
         return card_map

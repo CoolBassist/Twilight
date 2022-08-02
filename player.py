@@ -6,11 +6,11 @@ import random
 class Player():
     def __init__(self, name: str, isBot: bool = False):
         self.__hand = [Cards.getCards()[1]]
-        self.__hand += [Cards.getCards()[random.randint(2, len(Cards.getCards()))] for _ in range(2)]
+        self.addCard()
+        self.addCard()
         self.__graveyard = []
         self.__name = name
-        self.__mana = 4
-        self.__isBot = isBot
+        self.__mana = 5
     
     def getHand(self) -> list:
         return self.__hand
@@ -44,6 +44,12 @@ class Player():
     def getName(self) -> str:
         return self.__name
     
+    def addCard(self):
+        randCard = None
+        while (randCard := Cards.getCards()[random.randint(2, len(Cards.getCards()))]) in self.__hand:
+            pass
+        self.__hand.append(randCard)
+    
     def getCard(self, card_name: str):        
         for i in self.__hand:
             if i["NAME"].casefold() == card_name.casefold() and i["COST"] <= self.__mana:
@@ -52,13 +58,10 @@ class Player():
         
         return False
     
-    def addPerm(self):
-        self.__hand = [Cards.getCards()[1]] + self.__hand
-    
     def getRandomCard(self) -> dict:
-        randCard = random.choice(self.__hand)
-        while randCard["COST"] > self.__mana:
-            randCard = random.choice(self.__hand)
+        randCard = None
+        while (randCard := random.choice(self.__hand))["COST"] > self.__mana:
+            pass
         
         self.__mana -= randCard["COST"]
         rich.print(f"{self.__name} played {randCard['NAME']}")

@@ -1,5 +1,3 @@
-from turtle import hideturtle
-from cards import Cards
 from player import Player
 import utilities as ut
 import rich
@@ -14,32 +12,29 @@ os.system("cls")
 rich.print(Panel("Twilight",subtitle_align="center" ,subtitle="A turn-based card game"))
 print()
 
-rich.print("[cyan]Court Squire [/cyan]: Welcome! You must be the new king of this land. Can I trouble you for your name? ")
-player = Player(Prompt.ask("[green]You[/green]: Hello squire. Of course, my name is King").capitalize())
-rich.print(f"[cyan]Court Squire [/cyan]: Ah yes {player.getName()}! There is trouble brewing in the far off land that is ruled over by your enemy. I can't remember their name...")
-bot = Player(Prompt.ask("[green]You[/green]: Ah yes, I know them, they are called King").capitalize())
-rich.print(f"[cyan]Court Squire [/cyan]: Yes! King {bot.getName()}! That was it! You must go now my liege... ")
+rich.print("[cyan]Messenger[/cyan]: Hello my liege. I am a messenger from an enemy kingdom. Can I know whose land I am residing in?")
+player = Player(Prompt.ask("[green]You[/green]: Of course, messenger, I am King").capitalize())
+rich.print(f"[cyan]Court Squire [/cyan]: Oh King {player.getName()}! Our king has great honour and wants to inform you to prepare for war over this very land.")
+rich.print("[green]You[/green]: And which king might that be?")
+bot = Player(Prompt.ask(f"[cyan]Court Squire [/cyan]: Our king is called").capitalize())
+rich.print(f"[green]You[/green]: Then tell King {bot.getName()} to prepare for war...")
 
 time.sleep(4)
 
 for i in track(range(50), description="Preparing for battle..."):
-    time.sleep(0.1)  # Simulate work being done
-
-
+    time.sleep(0.1)
 
 turn = 0
 
 history = []
-
-
 
 while not player.isLost() and not bot.isLost():
     os.system("cls")
     rich.print(Panel("Twilight",subtitle_align="center" ,subtitle="A turn-based card game"))
     print()
     
-    player.addMana(turn%3 + 1)
-    bot.addMana(turn%3 + 1)
+    player.addMana((turn-1)%3 + 1) if turn > 0 else None
+    bot.addMana((turn-1)%3 + 1) if turn > 0 else None
     
     columns = Columns([player.getHandTable(), bot.getHandTable()], equal=True, expand=True)
     rich.print(columns)
