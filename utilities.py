@@ -11,7 +11,8 @@ def attack(card1: dict, card2: dict, turn: int):
         "Dragon": "attacks",    #TODO change this
         "Mage": "casts",
         "Peasant": "hits",
-        "Paladin": "swears"     #TODO change this     
+        "Paladin": "swears",     #TODO change this 
+        "Archer": "shoots"    
         }
     
     card2["HP"] -= card1["DMG"]
