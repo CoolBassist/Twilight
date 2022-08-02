@@ -1,7 +1,7 @@
 # Twilight
 A turn based card game. Requires the Python module `rich` to run.
 
-You and the bot are given 2 cards randomly from a pool of available cards, and also a rest card.
+You and the bot are given 2 cards randomly from a pool of available cards, and also a rest card. The game ends when a player has only the rest card left.
 
 ## Attacking
 To attack, simply type the name of the card that you wish to play. <i>Make sure you got enough mana to cover it!</i> The bot will proceed to also pick a card. You will attack the bots card. If the bots card hp drops below 0, they will lose the card and it will leave for the graveyard. And your mana will drop by the cost of the card you played. 
