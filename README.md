@@ -1,5 +1,5 @@
 # Twilight
-A turn based card game.
+A turn based card game. Requires the Python module `rich` to run.
 
 You and the bot are given 2 cards randomly from a pool of available cards, and also a rest card.
 
