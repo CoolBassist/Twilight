@@ -1,7 +1,7 @@
 import rich
 import time
 
-def attack(card1: dict, card2: dict):
+def attack(card1: dict, card2: dict, turn: int):
     dialogue = {
         "Wolf": "swipes",
         "Brute": "punches",
@@ -14,8 +14,12 @@ def attack(card1: dict, card2: dict):
         "Paladin": "swears"     #TODO change this     
         }
     
-    rich.print(f"The [green italic] {card1['NAME']} [/green italic] {dialogue[card1['NAME']]} the [red italic] {card2['NAME']}[/red italic].")
-
+    card2["HP"] -= card1["DMG"]
+    
+    primaryColour, secondaryColour = ("green", "red") if turn % 2 == 0 else ("red", "green")
+    
+    return f"The [{primaryColour} italic] {card1['NAME']} [/{primaryColour} italic] {dialogue[card1['NAME']]} the [{secondaryColour} italic] {card2['NAME']}[/{secondaryColour} italic] for [white on red]{card1['DMG']}[/white on red] damage!"
+    
 def printout(s: str, colour: str = "black"):
     sl = f"[{colour}]hey"
     rich.print(sl)
