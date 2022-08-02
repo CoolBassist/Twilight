@@ -60,7 +60,7 @@ class Player():
     
     def getRandomCard(self) -> dict:
         randCard = None
-        while (randCard := random.choice(self.__hand))["COST"] > self.__mana:
+        while (randCard := random.choice(self.__hand))["COST"] >= self.__mana:
             pass
         
         self.__mana -= randCard["COST"]
