@@ -3,7 +3,7 @@ class Cards():
     @staticmethod
     def getCards() -> dict:
         card_map = {
-            1: {"NAME": "Wolf",     "DMG": 1,   "HP": 4,    "COST": 0},
+            1: {"NAME": "Rest",     "DMG": 0,   "HP": 0,    "COST": 0},
             2: {"NAME": "Brute",    "DMG": 3,   "HP": 20,   "COST": 6},
             3: {"NAME": "Wizard",   "DMG": 7,   "HP": 10,   "COST": 4},
             4: {"NAME": "Goblin",   "DMG": 4,   "HP": 5,    "COST": 1},

@@ -3,7 +3,7 @@ import time
 
 def attack(card1: dict, card2: dict, turn: int):
     dialogue = {
-        "Wolf": "swipes",
+        "Rest": "You shouldnt see this",
         "Brute": "punches",
         "Wizard": "curses",
         "Goblin": "nibbles",    #TODO change this

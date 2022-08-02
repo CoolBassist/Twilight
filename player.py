@@ -44,7 +44,7 @@ class Player():
     def getName(self) -> str:
         return self.__name
     
-    def getCard(self, card_name: str = ""):
+    def getCard(self, card_name: str):        
         for i in self.__hand:
             if i["NAME"].casefold() == card_name.casefold() and i["COST"] <= self.__mana:
                 self.__mana -= i["COST"]
