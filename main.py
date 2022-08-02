@@ -6,12 +6,26 @@ import rich
 from rich.columns import Columns
 from rich.panel import Panel
 import time
+from rich.prompt import Prompt
+from rich.progress import track
 import os
 
-players_hand = []
+os.system("cls")
+rich.print(Panel("Twilight",subtitle_align="center" ,subtitle="A turn-based card game"))
+print()
 
-player = Player("Joe")
-bot = Player("Bot")
+rich.print("[cyan]Court Squire [/cyan]: Welcome! You must be the new king of this land. Can I trouble you for your name? ")
+player = Player(Prompt.ask("[green]You[/green]: Hello squire. Of course, my name is King").capitalize())
+rich.print(f"[cyan]Court Squire [/cyan]: Ah yes {player.getName()}! There is trouble brewing in the far off land that is ruled over by your enemy. I can't remember their name...")
+bot = Player(Prompt.ask("[green]You[/green]: Ah yes, I know them, they are called King").capitalize())
+rich.print(f"[cyan]Court Squire [/cyan]: Yes! King {bot.getName()}! That was it! You must go now my liege... ")
+
+time.sleep(4)
+
+for i in track(range(50), description="Preparing for battle..."):
+    time.sleep(0.1)  # Simulate work being done
+
+
 
 turn = 0
 
@@ -23,6 +37,7 @@ while not player.isLost() and not bot.isLost():
     os.system("cls")
     rich.print(Panel("Twilight",subtitle_align="center" ,subtitle="A turn-based card game"))
     print()
+    
     player.addMana(turn%3 + 1)
     bot.addMana(turn%3 + 1)
     
@@ -48,10 +63,12 @@ while not player.isLost() and not bot.isLost():
         time.sleep(4)
         continue
     
-    if turn == 1 and cardPlayed["NAME"] == "Rest":
+    if turn%2 == 1 and cardPlayed["NAME"] == "Rest":
         party = player.getHand()[1:]
         for i in party:
             ut.attack(botCard, i, turn)
+            if i["HP"] <= 0:
+                player.addToGraveyard(i)
         
         rich.print(f"[red]{bot.getName()}[/red] attacks the entire party while [green]{player.getName()}[/green] was resting for [white on red]{botCard['DMG']}[/white on red] damage!")
         history.append(f"[red]{bot.getName()}[/red] attacks the entire party while [green]{player.getName()}[/green] was resting for [white on red]{botCard['DMG']}[/white on red] damage!")
@@ -59,10 +76,12 @@ while not player.isLost() and not bot.isLost():
         time.sleep(4)
         continue
 
-    if turn == 0 and botCard["NAME"] == "Rest":
+    if turn%2 == 0 and botCard["NAME"] == "Rest":
         party = bot.getHand()[1:]
         for i in party:
             ut.attack(cardPlayed, i, turn)
+            if i["HP"] <= 0:
+                bot.addToGraveyard(i)
         
         rich.print(f"[green]{player.getName()}[/green] attacks the entire party while [red]{bot.getName()}[/red] was resting for [white on red]{cardPlayed['DMG']}[/white on red] damage!")
         history.append(f"[green]{player.getName()}[/green] attacks the entire party while [red]{bot.getName()}[/red] was resting for [white on red]{cardPlayed['DMG']}[/white on red] damage!")
@@ -90,3 +109,14 @@ while not player.isLost() and not bot.isLost():
     history.append(currentMessage)
     
     turn += 1
+    
+if player.isLost():
+    rich.print("You have fallen..")
+    time.sleep(6)
+    rich.print(f"Your kingdom falls around you as {bot.getName()} takes your crown and proclaims himself the ruler of the land.")
+    rich.print("You fought your best and it was all for naught...")
+else:
+    rich.print("You have risen..")
+    time.sleep(6)
+    rich.print(f"You take {bot.getName()}'s crown and place it on your head. You have expanded your kingdom, and built it on the land of your enemies.")
+    rich.print("There is no limit to your power...")

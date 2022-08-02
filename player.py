@@ -25,7 +25,7 @@ class Player():
         self.__mana += amount
     
     def isLost(self) -> bool:
-        return len(self.__hand) == 1
+        return len(self.__hand) <= 1
         
     def addToGraveyard(self, card:dict) -> None:
         self.__graveyard.append(card)
