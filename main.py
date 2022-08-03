@@ -65,15 +65,11 @@ while not player.isLost() and not bot.isLost():
     player.addMana((turn-1)%3 + 1) if turn > 0 else None
     bot.addMana((turn-1)%3 + 1) if turn > 0 else None
     
-    columns = Columns([player.getHandTable(), bot.getHandTable()], equal=True, expand=True)
+    columns = Columns([player.getHandTable(), bot.getHandTable()], equal=True, expand=True, align="center")
     rich.print(columns)
     
-    print("...") if len(history) > 5 else None
-    
-    for i in history[-5:]:
-        rich.print(i)
-        
-    print()
+    #print(history)
+    ut.printHistory(history)
         
     rich.print(f"Play a card to {'attack' if turn%2 == 0 else 'defend against'} [red]{bot.getName()}[/red]:")
 
@@ -98,36 +94,39 @@ while not player.isLost() and not bot.isLost():
         party = player.getHand()[1:]
         if turn%2 == 1:
             
-            partyLost = []
+            partyLost = ""
 
             for i in party:
                 ut.attack(botCard, i, turn, restAttack=True)
                 if i["HP"] <= 0:
-                    partyLost.append(i["NAME"])
+                    partyLost += i["NAME"] + ", "
                     player.addToGraveyard(i)
 
-            rich.print(f"[red]{bot.getName()}[/red] attacks the entire party while [green]{player.getName()}[/green] was resting for [white on red]{botCard['DMG']}[/white on red] damage! And killed {[name for name in partyLost]}!")
-            history.append(f"[red]{bot.getName()}[/red] attacks the entire party while [green]{player.getName()}[/green] was resting for [white on red]{botCard['DMG']}[/white on red] damage! And killed {[name for name in partyLost]}!")
+            message = f"[red]{bot.getName()}[/red] attacks the entire party while [green]{player.getName()}[/green] was resting for [white on red]{botCard['DMG']}[/white on red] damage!" + (f" And killed {partyLost[:-2]}!" if len(partyLost) > 0 else "")
+            rich.print(message)
+            history.append(message)
             turn += 1
             time.sleep(4)
             continue        
         else:
             for i in party:
                 i["HP"] += 2
-        
-        
     
     if botCard["NAME"] == "Rest":
         party = bot.getHand()[1:]
         if turn%2 == 0:
-            partyLost = []
+            partyLost = ""
         
             for i in party:
                 ut.attack(cardPlayed, i, turn, restAttack=True)
                 if i["HP"] <= 0:
-                    partyLost.append(i["NAME"])
+                    partyLost += i["NAME"] + ", "
                     bot.addToGraveyard(i)
-                turn += 1
+            
+            message = f"[green]{player.getName()}[/green] attacks the entire party while [red]{bot.getName()}[/red] was resting for [white on red]{cardPlayed['DMG']}[/white on red] damage!" +  (f" And killed {partyLost[:-2]}!" if len(partyLost) > 0 else "")
+            rich.print(message)
+            history.append(message)
+            turn += 1
             time.sleep(4)
             continue
         else:
@@ -170,8 +169,6 @@ else:
 """
 To implement:
     A spell stage every 5 days? swap cards, gain new card, etc
-    Change colour of HP in hand table, depending if near full health, medium health, low health, and overcharged health.
     Maybe fix balances in cards?
     Make it obvious how much mana the user will be gaining per day
-    Improve history section. Maybe a panel in the middle of the screen?
 """
