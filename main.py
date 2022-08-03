@@ -169,9 +169,9 @@ else:
 
 """
 To implement:
-    Spell stage every 5 days?    
-    Damages ranges, misses, critical hits etc: Done
-    Ability to swap cards
-    Ability to gain new cards
-    Ability to heal cards
+    A spell stage every 5 days? swap cards, gain new card, etc
+    Change colour of HP in hand table, depending if near full health, medium health, low health, and overcharged health.
+    Maybe fix balances in cards?
+    Make it obvious how much mana the user will be gaining per day
+    Improve history section. Maybe a panel in the middle of the screen?
 """
