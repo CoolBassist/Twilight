@@ -7,14 +7,17 @@ def attack(card1: dict, card2: dict, turn: int, restAttack: bool = False):
         "Rest": "You shouldnt see this",
         "Brute": "punches",
         "Wizard": "curses",
-        "Goblin": "nibbles",    #TODO change this
+        "Goblin": "nibbles",
         "Knight": "stabs",
-        "Dragon": "attacks",    #TODO change this
+        "Dragon": "incinerates",
         "Mage": "casts",
         "Peasant": "hits",
-        "Paladin": "swears",     #TODO change this 
-        "Archer": "shoots"    
-        }
+        "Paladin": "charges",
+        "Archer": "shoots",
+        "Bowman": "pierces",
+        "Assassin": "backstabs",
+        "Bear": "swipes"  
+    }
     
     if restAttack:
         card2["HP"] -= card1["DMG"]
