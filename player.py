@@ -6,9 +6,9 @@ import random
 class Player():
     def __init__(self, name: str, isBot: bool = False):
         self.__hand = [Cards.getCards()[1]]
-        self.addCard()
-        self.addCard()
         self.__graveyard = []
+        self.addRandomCard()
+        self.addRandomCard()
         self.__name = name
         self.__mana = 5
     
@@ -34,7 +34,22 @@ class Player():
     def getHandTable(self) -> None:
         table = Table("Name", "HP", "Damage", "Cost", title=f"[underline]{self.__name}'s[/underline] Hand ([blue]{self.__mana}[/blue] mana)")
         for card in self.__hand:
-            table.add_row(card["NAME"], str(card["HP"]), str(card["DMG"]), str(card["COST"]))
+            hpColour = None
+            maxHP = None
+            for tcard in Cards.getCards().values():
+                if card["NAME"] == tcard["NAME"]:
+                    maxHP = tcard["HP"]
+
+            if maxHP < card["HP"]:
+                hpColour = "cyan"
+            elif maxHP*0.66 < card["HP"] <= maxHP:
+                hpColour = "green"
+            elif maxHP*0.33 < card["HP"] <= maxHP*0.6:
+                hpColour = "orange3"
+            else:
+                hpColour = "red"
+                
+            table.add_row(card["NAME"], f"[{hpColour}]{card['HP']}[/{hpColour}]", str(card["DMG"]), str(card["COST"]))
         
         return table
     
@@ -44,7 +59,7 @@ class Player():
     def getName(self) -> str:
         return self.__name
     
-    def addCard(self):
+    def addRandomCard(self):
         randCard = None
         while (randCard := Cards.getCards()[random.randint(2, len(Cards.getCards()))]) in self.__hand or (randCard in self.__graveyard):
             pass
