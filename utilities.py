@@ -1,4 +1,5 @@
 import rich
+from rich.panel import Panel
 import random
 import time
 
@@ -41,6 +42,19 @@ def attack(card1: dict, card2: dict, turn: int, restAttack: bool = False):
             card2["HP"] -= damage  
        
     return message
+
+def printHistory(history: list) -> None:
+    title = "..." if len(history) > 5 else None
+    message = ""
+    
+    for i in history[-5:]:
+        message += i + "\n"
+        
+    for i in range(len(history), 5):
+        message += "\n"
+    
+    rich.print(Panel(f"{message[:-1]}",subtitle_align="center", title=title, subtitle="History"))
+    print()
 
 def printout(s: str, nl: bool = True):
     for c in s:
