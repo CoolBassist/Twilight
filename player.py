@@ -46,7 +46,7 @@ class Player():
     
     def addCard(self):
         randCard = None
-        while (randCard := Cards.getCards()[random.randint(2, len(Cards.getCards()))]) in self.__hand:
+        while (randCard := Cards.getCards()[random.randint(2, len(Cards.getCards()))]) in self.__hand or (randCard in self.__graveyard):
             pass
         self.__hand.append(randCard)
     
